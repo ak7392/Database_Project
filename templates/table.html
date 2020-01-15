@@ -1,0 +1,90 @@
+
+
+<div>
+    <link href="{{url_for('static', filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
+    <div class="row"><!--div 1.1-->
+
+        <div class="col md-12"><!--div 1.1.1-->
+
+
+
+            <h2>Patients<button type="button" class="btn btn-success  pull-right" data-toggle="modal" data-target="#myModal">Add Patient Data</button></h2>
+
+    {%with messages = get_flashed_messages()%}
+
+    {%if messages%}
+
+    {% for message in messages %}
+
+    <div class="alert alert-success alert-dismissable" role="alert">
+
+     <button type="button" class="close" data-dismiss="alert" aria-label ="close">
+
+         <span aria-hidden="true">&times;</span>
+
+     </button>
+        {{message}}
+
+
+    </div>
+
+
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+
+
+        <table class="table table-striped" align="center">
+
+
+                <tr>
+              <th>Patient_ID</th>
+              <th>First_Name</th>
+              <th>Last_Name</th>
+              <th>Gender</th>
+              <th>Birth_date</th>
+              <th>Race</th>
+              <th>Marital_Status</th>
+              <th>Action</th>
+                </tr>
+
+
+            {% for row in patients %}
+            <tr>
+                    <td>{{row.0}}</td>
+                    <td>{{row.1}}</td>
+                    <td>{{row.2}}</td>
+                    <td>{{row.3}}</td>
+                    <td>{{row.4}}</td>
+                    <td>{{row.5}}</td>
+                    <td>{{row.6}}</td>
+
+					<td>
+
+                <a href="/update/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edit</a>
+                <a href="/delete/{{row.0}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Delete</a>
+                    </td>
+            </tr>
+
+  {% include "Update_Patient_Modal.html" %}
+
+            {%endfor%}
+
+        </table>
+
+ </div><!-- div(- 1.1.1)dive column ended-->
+
+
+ </div><!-- div(- 1.1) of row ended-->
+
+
+  {% include "insert_data.html"%}
+
+
+
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+
+<script type="text/javascript" src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+
+
+</div>
